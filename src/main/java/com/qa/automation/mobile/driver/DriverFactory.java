@@ -1,10 +1,12 @@
 package com.qa.automation.mobile.driver;
 import io.appium.java_client.android.AndroidDriver;
+import java.net.MalformedURLException;
 import io.appium.java_client.android.options.UiAutomator2Options;
+
 import java.net.URI;
 
 public class DriverFactory{
-    public static AndroidDriver createAndroidDriver() throws Exception {
+    public static AndroidDriver createAndroidDriver() throws MalformedURLException{
         UiAutomator2Options options = new UiAutomator2Options();
 
         AndroidDriver driver = new AndroidDriver(

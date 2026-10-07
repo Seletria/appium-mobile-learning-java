@@ -7,12 +7,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import com.qa.automation.mobile.driver.DriverFactory;
 
+import java.net.MalformedURLException;
+
 class DriverSessionTest {
 
     private AndroidDriver driver;
 
     @BeforeEach
-    void setUp() throws Exception{
+    void setUp() throws MalformedURLException{
         driver = DriverFactory.createAndroidDriver();
     }
 
