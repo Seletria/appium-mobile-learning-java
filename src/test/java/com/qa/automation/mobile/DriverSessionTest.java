@@ -24,6 +24,8 @@ class DriverSessionTest {
 
     @AfterEach
     void tearDown(){
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
