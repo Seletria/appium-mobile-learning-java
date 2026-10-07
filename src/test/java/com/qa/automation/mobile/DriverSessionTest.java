@@ -1,7 +1,9 @@
 package com.qa.automation.mobile;
 
 import io.appium.java_client.android.AndroidDriver;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
@@ -14,17 +16,17 @@ class DriverSessionTest {
     private AndroidDriver driver;
 
     @BeforeEach
-    void setUp() throws MalformedURLException{
+    void setUp() throws MalformedURLException {
         driver = DriverFactory.createAndroidDriver();
     }
 
     @Test
-    void createsDriver(){
+    void createsDriver() {
         assertNotNull(driver.getSessionId());
     }
 
     @AfterEach
-    void tearDown(){
+    void tearDown() {
         if (driver != null) {
             driver.quit();
         }
