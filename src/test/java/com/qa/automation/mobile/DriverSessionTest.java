@@ -3,6 +3,7 @@ package com.qa.automation.mobile;
 import io.appium.java_client.android.AndroidDriver;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +24,11 @@ class DriverSessionTest {
     @Test
     void createsDriver() {
         assertNotNull(driver.getSessionId());
+    }
+
+    @Test
+    void launchesTargetApp() {
+        assertEquals(DriverFactory.APP_PACKAGE, driver.getCurrentPackage());
     }
 
     @AfterEach
