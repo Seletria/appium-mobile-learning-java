@@ -11,9 +11,14 @@ import java.net.URI;
 public class DriverFactory {
 
     private static final String SERVER_URL = "http://127.0.0.1:4723";
+    public static final String APP_PACKAGE = "com.saucelabs.mydemoapp.android";
+    private static final String APP_ACTIVITY = ".view.activities.SplashActivity";
 
     public static AndroidDriver createAndroidDriver() throws MalformedURLException {
         UiAutomator2Options options = new UiAutomator2Options();
+
+        options.setAppPackage(APP_PACKAGE);
+        options.setAppActivity(APP_ACTIVITY);
 
         AndroidDriver driver = new AndroidDriver(
                 URI.create(resolveServerUrl()).toURL(), options);
