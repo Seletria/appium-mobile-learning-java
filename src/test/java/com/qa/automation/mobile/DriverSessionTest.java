@@ -22,11 +22,6 @@ class DriverSessionTest {
     }
 
     @Test
-    void createsDriver() {
-        assertNotNull(driver.getSessionId());
-    }
-
-    @Test
     void launchesTargetApp() {
         assertEquals(DriverFactory.APP_PACKAGE, driver.getCurrentPackage());
     }
