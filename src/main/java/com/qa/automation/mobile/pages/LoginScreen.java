@@ -4,6 +4,10 @@ import io.appium.java_client.android.AndroidDriver;
 import com.qa.automation.mobile.driver.DriverFactory;
 import org.openqa.selenium.By;
 import io.appium.java_client.AppiumBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.WebElement;
+import java.time.Duration;
 
 public class LoginScreen {
 
@@ -17,6 +21,8 @@ public class LoginScreen {
             "new UiSelector().resourceId(\"" + DriverFactory.APP_PACKAGE + ":id/loginBtn\")"
     );
 
+    private static final Duration WAIT_TIMEOUT = Duration.ofSeconds(5);
+
     private final AndroidDriver driver;
 
     public LoginScreen(AndroidDriver driver) {
@@ -24,10 +30,13 @@ public class LoginScreen {
     }
 
     public void logIn(String username, String password) {
-        driver.findElement(USERNAME_INPUT).sendKeys(username);
-        driver.findElement(PASSWORD_INPUT).sendKeys(password);
-        driver.findElement(LOGIN_BUTTON).click();
+        waitUntilVisible(USERNAME_INPUT).sendKeys(username);
+        waitUntilVisible(PASSWORD_INPUT).sendKeys(password);
+        waitUntilVisible(LOGIN_BUTTON).click();
     }
 
-
+    private WebElement waitUntilVisible(By locator) {
+        return new WebDriverWait(driver, WAIT_TIMEOUT)
+                .until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
 }
