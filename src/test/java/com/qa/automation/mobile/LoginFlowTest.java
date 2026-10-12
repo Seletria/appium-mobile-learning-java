@@ -47,6 +47,18 @@ class LoginFlowTest {
         );
     }
 
+    @Test
+    void loginWithEmptyUsernameReturnsError() {
+        MenuScreen menuScreen = new MenuScreen(driver);
+        menuScreen.openMenu();
+        menuScreen.tapLogIn();
+
+        LoginScreen loginScreen = new LoginScreen(driver);
+        loginScreen.logIn("", PASSWORD);
+        loginScreen.waitForUsernameError();
+
+    }
+
     @AfterEach
     void tearDown() {
         if (driver != null) {
