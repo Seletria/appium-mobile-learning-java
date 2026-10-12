@@ -7,6 +7,7 @@ import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.WebElement;
+
 import java.time.Duration;
 
 public class LoginScreen {
@@ -19,6 +20,10 @@ public class LoginScreen {
     );
     private static final By LOGIN_BUTTON = AppiumBy.androidUIAutomator(
             "new UiSelector().resourceId(\"" + DriverFactory.APP_PACKAGE + ":id/loginBtn\")"
+    );
+    private static final By USERNAME_ERROR = AppiumBy.androidUIAutomator(
+            "new UiSelector().resourceId(\"" + DriverFactory.APP_PACKAGE + ":id/nameErrorTV\")"
+                    + ".text(\"Username is required\")"
     );
 
     private static final Duration WAIT_TIMEOUT = Duration.ofSeconds(5);
@@ -38,5 +43,9 @@ public class LoginScreen {
     private WebElement waitUntilVisible(By locator) {
         return new WebDriverWait(driver, WAIT_TIMEOUT)
                 .until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    public void waitForUsernameError() {
+        waitUntilVisible(USERNAME_ERROR);
     }
 }
