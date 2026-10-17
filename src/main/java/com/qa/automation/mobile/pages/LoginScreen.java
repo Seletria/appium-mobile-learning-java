@@ -20,6 +20,10 @@ public class LoginScreen extends BaseScreen {
             "new UiSelector().resourceId(\"" + DriverFactory.APP_PACKAGE + ":id/nameErrorTV\")"
                     + ".text(\"Username is required\")"
     );
+    private static final By LOGIN_TITLE = AppiumBy.androidUIAutomator(
+            "new UiSelector().resourceId(\"" + DriverFactory.APP_PACKAGE + ":id/loginTV\")"
+                    + ".text(\"Login\")"
+    );
 
     public LoginScreen(AndroidDriver driver) {
         super(driver);
@@ -33,5 +37,9 @@ public class LoginScreen extends BaseScreen {
 
     public void waitForUsernameError() {
         waitUntilVisible(USERNAME_ERROR);
+    }
+
+    public void waitForScreen() {
+        waitUntilVisible(LOGIN_TITLE);
     }
 }
