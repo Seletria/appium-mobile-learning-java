@@ -4,6 +4,7 @@ import io.appium.java_client.android.AndroidDriver;
 import com.qa.automation.mobile.driver.DriverFactory;
 import org.openqa.selenium.By;
 import io.appium.java_client.AppiumBy;
+import org.openqa.selenium.TimeoutException;
 
 public class MenuScreen extends BaseScreen {
 
@@ -24,6 +25,15 @@ public class MenuScreen extends BaseScreen {
         tapMenuItem("Log In");
     }
 
+    public boolean isLogOutDisplayed() {
+        try {
+            waitUntilVisible(menuItem("Log Out"));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
     private void tapMenuItem(String itemText) {
         waitUntilVisible(menuItem(itemText)).click();
     }
@@ -34,5 +44,4 @@ public class MenuScreen extends BaseScreen {
                 DriverFactory.APP_PACKAGE, itemText
         ));
     }
-
 }
