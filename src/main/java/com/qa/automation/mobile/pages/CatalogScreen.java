@@ -17,4 +17,16 @@ public class CatalogScreen extends BaseScreen {
     public void waitForScreen() {
         waitUntilVisible(PRODUCT_TITLE);
     }
+
+    private static By productImage(String productName) {
+        return AppiumBy.androidUIAutomator(String.format(
+                "new UiSelector().resourceId(\"%1$s:id/titleTV\").text(\"%2$s\")"
+                        + ".fromParent(new UiSelector().resourceId(\"%1$s:id/productIV\"))",
+                DriverFactory.APP_PACKAGE, productName
+        ));
+    }
+
+    public void tapProductByName(String productName) {
+        waitUntilVisible(productImage(productName)).click();
+    }
 }
