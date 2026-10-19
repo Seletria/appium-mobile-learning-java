@@ -1,9 +1,10 @@
 package com.qa.automation.mobile.pages;
 
-import io.appium.java_client.android.AndroidDriver;
 import com.qa.automation.mobile.driver.DriverFactory;
-import org.openqa.selenium.By;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.AppiumBy;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginScreen extends BaseScreen {
 
@@ -41,5 +42,13 @@ public class LoginScreen extends BaseScreen {
 
     public void waitForScreen() {
         waitUntilVisible(LOGIN_TITLE);
+    }
+
+    public void tapUsernameInput() {
+        waitUntilVisible(USERNAME_INPUT).click();
+    }
+
+    public void waitForKeyboard() {
+        new WebDriverWait(driver, WAIT_TIMEOUT).until(d -> driver.isKeyboardShown());
     }
 }
