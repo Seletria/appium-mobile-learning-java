@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.qa.automation.mobile.driver.DriverFactory;
+import com.qa.automation.mobile.driver.AppiumDriverManager;
 import com.qa.automation.mobile.pages.MenuScreen;
 import com.qa.automation.mobile.pages.LoginScreen;
 import com.qa.automation.mobile.pages.CatalogScreen;
@@ -17,15 +17,14 @@ class ProductFlowTest {
     private static final String USERNAME = "bod@example.com";
     private static final String PASSWORD = "10203040";
 
-    private AndroidDriver driver;
-
     @BeforeEach
     void setUp() throws MalformedURLException {
-        driver = DriverFactory.createAndroidDriver();
+        AppiumDriverManager.start();
     }
 
     @Test
     void tapProductOpensProductDetail() {
+        AndroidDriver driver = AppiumDriverManager.getDriver();
         CatalogScreen catalogScreen = new CatalogScreen(driver);
         ProductDetailScreen productDetailScreen = new ProductDetailScreen(driver);
 
@@ -36,6 +35,7 @@ class ProductFlowTest {
 
     @Test
     void loggedInUserSeesLogOutOption() {
+        AndroidDriver driver = AppiumDriverManager.getDriver();
         MenuScreen menuScreen = new MenuScreen(driver);
         LoginScreen loginScreen = new LoginScreen(driver);
         CatalogScreen catalogScreen = new CatalogScreen(driver);
@@ -60,8 +60,6 @@ class ProductFlowTest {
 
     @AfterEach
     void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        AppiumDriverManager.quit();
     }
 }

@@ -7,28 +7,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
+import com.qa.automation.mobile.driver.AppiumDriverManager;
 import com.qa.automation.mobile.driver.DriverFactory;
 
 import java.net.MalformedURLException;
 
 class DriverSessionTest {
 
-    private AndroidDriver driver;
-
     @BeforeEach
     void setUp() throws MalformedURLException {
-        driver = DriverFactory.createAndroidDriver();
+        AppiumDriverManager.start();
     }
 
     @Test
     void launchesTargetApp() {
+        AndroidDriver driver = AppiumDriverManager.getDriver();
         assertEquals(DriverFactory.APP_PACKAGE, driver.getCurrentPackage());
     }
 
     @AfterEach
     void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        AppiumDriverManager.quit();
     }
 }

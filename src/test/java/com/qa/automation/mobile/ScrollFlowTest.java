@@ -1,6 +1,6 @@
 package com.qa.automation.mobile;
 
-import com.qa.automation.mobile.driver.DriverFactory;
+import com.qa.automation.mobile.driver.AppiumDriverManager;
 import com.qa.automation.mobile.pages.CatalogScreen;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.jupiter.api.AfterEach;
@@ -15,15 +15,14 @@ class ScrollFlowTest {
     private static final String TARGET_PRODUCT = "Sauce Labs Bolt T-Shirt";
     private static final int MAX_ATTEMPTS = 10;
 
-    private AndroidDriver driver;
-
     @BeforeEach
     void setUp() throws MalformedURLException {
-        driver = DriverFactory.createAndroidDriver();
+        AppiumDriverManager.start();
     }
 
     @Test
     void scrollingCatalogRevealsProductBelowTheFold() {
+        AndroidDriver driver = AppiumDriverManager.getDriver();
         CatalogScreen catalogScreen = new CatalogScreen(driver);
 
         catalogScreen.waitForScreen();
@@ -35,8 +34,6 @@ class ScrollFlowTest {
 
     @AfterEach
     void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        AppiumDriverManager.quit();
     }
 }

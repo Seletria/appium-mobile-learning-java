@@ -4,7 +4,7 @@ import io.appium.java_client.android.AndroidDriver;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
-import com.qa.automation.mobile.driver.DriverFactory;
+import com.qa.automation.mobile.driver.AppiumDriverManager;
 import com.qa.automation.mobile.pages.LoginScreen;
 import com.qa.automation.mobile.pages.MenuScreen;
 import com.qa.automation.mobile.pages.CatalogScreen;
@@ -16,15 +16,14 @@ class LoginFlowTest {
     private static final String USERNAME = "bod@example.com";
     private static final String PASSWORD = "10203040";
 
-    private AndroidDriver driver;
-
     @BeforeEach
     void setUp() throws MalformedURLException {
-        driver = DriverFactory.createAndroidDriver();
+        AppiumDriverManager.start();
     }
 
     @Test
     void openMenuAndLogIn() {
+        AndroidDriver driver = AppiumDriverManager.getDriver();
         MenuScreen menuScreen = new MenuScreen(driver);
         menuScreen.openMenu();
         menuScreen.tapLogIn();
@@ -38,6 +37,7 @@ class LoginFlowTest {
 
     @Test
     void loginWithEmptyUsernameReturnsError() {
+        AndroidDriver driver = AppiumDriverManager.getDriver();
         MenuScreen menuScreen = new MenuScreen(driver);
         menuScreen.openMenu();
         menuScreen.tapLogIn();
@@ -50,8 +50,6 @@ class LoginFlowTest {
 
     @AfterEach
     void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        AppiumDriverManager.quit();
     }
 }
