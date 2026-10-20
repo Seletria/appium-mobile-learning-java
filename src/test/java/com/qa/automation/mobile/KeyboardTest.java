@@ -1,6 +1,6 @@
 package com.qa.automation.mobile;
 
-import com.qa.automation.mobile.driver.DriverFactory;
+import com.qa.automation.mobile.driver.AppiumDriverManager;
 import com.qa.automation.mobile.pages.LoginScreen;
 import com.qa.automation.mobile.pages.MenuScreen;
 import io.appium.java_client.android.AndroidDriver;
@@ -13,12 +13,12 @@ import java.net.MalformedURLException;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class KeyboardTest {
-    private AndroidDriver driver;
     private LoginScreen loginScreen;
 
     @BeforeEach
     void setUp() throws MalformedURLException {
-        driver = DriverFactory.createAndroidDriver();
+        AppiumDriverManager.start();
+        AndroidDriver driver = AppiumDriverManager.getDriver();
         MenuScreen menuScreen = new MenuScreen(driver);
         loginScreen = new LoginScreen(driver);
 
@@ -29,7 +29,7 @@ class KeyboardTest {
 
     @Test
     void keyboardIsHiddenOnLoginScreenBeforeTapping() {
-        assertFalse(driver.isKeyboardShown(), "Keyboard should be hidden before tapping the username field");
+        assertFalse(AppiumDriverManager.getDriver().isKeyboardShown(), "Keyboard should be hidden before tapping the username field");
     }
 
     @Test
@@ -40,8 +40,6 @@ class KeyboardTest {
 
     @AfterEach
     void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        AppiumDriverManager.quit();
     }
 }
