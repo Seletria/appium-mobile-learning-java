@@ -14,33 +14,26 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class KeyboardTest {
     private AndroidDriver driver;
+    private LoginScreen loginScreen;
 
     @BeforeEach
     void setUp() throws MalformedURLException {
         driver = DriverFactory.createAndroidDriver();
-    }
-
-    @Test
-    void keyboardIsHiddenOnLoginScreenBeforeTapping() {
         MenuScreen menuScreen = new MenuScreen(driver);
-        LoginScreen loginScreen = new LoginScreen(driver);
+        loginScreen = new LoginScreen(driver);
 
         menuScreen.openMenu();
         menuScreen.tapLogIn();
         loginScreen.waitForScreen();
+    }
 
+    @Test
+    void keyboardIsHiddenOnLoginScreenBeforeTapping() {
         assertFalse(driver.isKeyboardShown(), "Keyboard should be hidden before tapping the username field");
     }
 
     @Test
     void keyboardAppearsAfterTappingUsernameField() {
-        MenuScreen menuScreen = new MenuScreen(driver);
-        LoginScreen loginScreen = new LoginScreen(driver);
-
-        menuScreen.openMenu();
-        menuScreen.tapLogIn();
-        loginScreen.waitForScreen();
-
         loginScreen.tapUsernameInput();
         loginScreen.waitForKeyboard();
     }
