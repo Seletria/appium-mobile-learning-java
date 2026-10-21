@@ -1,8 +1,9 @@
 package com.qa.automation.mobile.driver;
 
 import io.appium.java_client.android.AndroidDriver;
-import java.net.MalformedURLException;
 import io.appium.java_client.android.options.UiAutomator2Options;
+
+import java.net.MalformedURLException;
 import java.net.URI;
 
 public class DriverFactory {
@@ -17,30 +18,17 @@ public class DriverFactory {
 
         options.setAppPackage(APP_PACKAGE);
         options.setAppActivity(APP_ACTIVITY);
-        options.setUdid(getDeviceUDID());
+        options.setUdid(envOrDefault("DEVICE_UDID", DEVICE_UDID));
 
         AndroidDriver driver = new AndroidDriver(
-                URI.create(resolveServerUrl()).toURL(), options);
+                URI.create(envOrDefault("APPIUM_URL", SERVER_URL)).toURL(), options);
 
         return driver;
     }
 
-    private static String resolveServerUrl() {
-        String appiumServerUrl = System.getenv("APPIUM_URL");
-        if (appiumServerUrl == null) {
-            return SERVER_URL;
-        } else {
-            return appiumServerUrl;
-        }
-    }
-
-    private static String getDeviceUDID() {
-        String deviceUDID = System.getenv("DEVICE_UDID");
-        if (deviceUDID == null) {
-            return DEVICE_UDID;
-        } else {
-            return deviceUDID;
-        }
+    private static String envOrDefault(String name, String defaultValue) {
+        String value = System.getenv(name);
+        return (value == null || value.isBlank()) ? defaultValue : value;
     }
 }
 
