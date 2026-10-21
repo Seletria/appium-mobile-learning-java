@@ -15,37 +15,31 @@ class LoginFlowTest {
 
     private static final String USERNAME = "bod@example.com";
     private static final String PASSWORD = "10203040";
+    private LoginScreen loginScreen;
 
     @BeforeEach
     void setUp() throws MalformedURLException {
         AppiumDriverManager.start();
+        AndroidDriver driver = AppiumDriverManager.getDriver();
+        MenuScreen menuScreen = new MenuScreen(driver);
+        loginScreen = new LoginScreen(driver);
+
+        menuScreen.openMenu();
+        menuScreen.tapLogIn();
     }
 
     @Test
     void openMenuAndLogIn() {
-        AndroidDriver driver = AppiumDriverManager.getDriver();
-        MenuScreen menuScreen = new MenuScreen(driver);
-        menuScreen.openMenu();
-        menuScreen.tapLogIn();
-
-        LoginScreen loginScreen = new LoginScreen(driver);
         loginScreen.logIn(USERNAME, PASSWORD);
 
-        CatalogScreen catalogScreen = new CatalogScreen(driver);
+        CatalogScreen catalogScreen = new CatalogScreen(AppiumDriverManager.getDriver());
         catalogScreen.waitForScreen();
     }
 
     @Test
     void loginWithEmptyUsernameReturnsError() {
-        AndroidDriver driver = AppiumDriverManager.getDriver();
-        MenuScreen menuScreen = new MenuScreen(driver);
-        menuScreen.openMenu();
-        menuScreen.tapLogIn();
-
-        LoginScreen loginScreen = new LoginScreen(driver);
         loginScreen.logIn("", PASSWORD);
         loginScreen.waitForUsernameError();
-
     }
 
     @AfterEach
