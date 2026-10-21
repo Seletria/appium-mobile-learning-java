@@ -29,7 +29,7 @@ class LoginFlowTest {
     }
 
     @Test
-    void openMenuAndLogIn() {
+    void loginWithValidCredentialsShowsCatalogScreen() {
         loginScreen.logIn(USERNAME, PASSWORD);
 
         CatalogScreen catalogScreen = new CatalogScreen(AppiumDriverManager.getDriver());
