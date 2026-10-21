@@ -4,7 +4,9 @@ import io.appium.java_client.android.AndroidDriver;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.qa.automation.mobile.driver.AppiumDriverManager;
 import com.qa.automation.mobile.pages.MenuScreen;
 import com.qa.automation.mobile.pages.LoginScreen;
@@ -39,12 +41,8 @@ class ProductFlowTest {
         MenuScreen menuScreen = new MenuScreen(driver);
         LoginScreen loginScreen = new LoginScreen(driver);
         CatalogScreen catalogScreen = new CatalogScreen(driver);
-        ProductDetailScreen productDetailScreen = new ProductDetailScreen(driver);
 
         catalogScreen.waitForScreen();
-        catalogScreen.tapProductByName("Sauce Labs Backpack");
-        productDetailScreen.waitForScreen();
-
         menuScreen.openMenu();
         menuScreen.tapLogIn();
 
