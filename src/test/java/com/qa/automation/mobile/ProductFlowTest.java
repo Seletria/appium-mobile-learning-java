@@ -36,7 +36,7 @@ class ProductFlowTest {
     }
 
     @Test
-    void loggedInUserSeesLogOutOption() {
+    void loginWithValidCredentialsShowsLogOutOption() {
         AndroidDriver driver = AppiumDriverManager.getDriver();
         MenuScreen menuScreen = new MenuScreen(driver);
         LoginScreen loginScreen = new LoginScreen(driver);
