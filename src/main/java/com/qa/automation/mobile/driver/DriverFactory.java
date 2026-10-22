@@ -20,6 +20,11 @@ public class DriverFactory {
         options.setAppActivity(APP_ACTIVITY);
         options.setUdid(envOrDefault("DEVICE_UDID", DEVICE_UDID));
 
+        String appPath = envOrDefault("APP_PATH", "");
+        if (!appPath.isBlank()) {
+            options.setApp(appPath);
+        }
+
         AndroidDriver driver = new AndroidDriver(
                 URI.create(envOrDefault("APPIUM_URL", SERVER_URL)).toURL(), options);
 
