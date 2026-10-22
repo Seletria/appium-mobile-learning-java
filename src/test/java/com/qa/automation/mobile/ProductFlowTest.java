@@ -2,8 +2,6 @@ package com.qa.automation.mobile;
 
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -13,16 +11,9 @@ import com.qa.automation.mobile.pages.LoginScreen;
 import com.qa.automation.mobile.pages.CatalogScreen;
 import com.qa.automation.mobile.pages.ProductDetailScreen;
 
-import java.net.MalformedURLException;
-
-class ProductFlowTest {
+class ProductFlowTest extends BaseTest {
     private static final String USERNAME = "bod@example.com";
     private static final String PASSWORD = "10203040";
-
-    @BeforeEach
-    void setUp() throws MalformedURLException {
-        AppiumDriverManager.start();
-    }
 
     @Test
     void tapProductOpensProductDetail() {
@@ -54,10 +45,5 @@ class ProductFlowTest {
         menuScreen.openMenu();
 
         assertTrue(menuScreen.isLogOutDisplayed(), "Log Out should be visible after login");
-    }
-
-    @AfterEach
-    void tearDown() {
-        AppiumDriverManager.quit();
     }
 }
