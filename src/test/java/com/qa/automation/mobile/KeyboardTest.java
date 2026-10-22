@@ -4,20 +4,16 @@ import com.qa.automation.mobile.driver.AppiumDriverManager;
 import com.qa.automation.mobile.pages.LoginScreen;
 import com.qa.automation.mobile.pages.MenuScreen;
 import io.appium.java_client.android.AndroidDriver;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.net.MalformedURLException;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-class KeyboardTest {
+class KeyboardTest extends BaseTest {
     private LoginScreen loginScreen;
 
     @BeforeEach
-    void setUp() throws MalformedURLException {
-        AppiumDriverManager.start();
+    void setUp() {
         AndroidDriver driver = AppiumDriverManager.getDriver();
         MenuScreen menuScreen = new MenuScreen(driver);
         loginScreen = new LoginScreen(driver);
@@ -36,10 +32,5 @@ class KeyboardTest {
     void keyboardAppearsAfterTappingUsernameField() {
         loginScreen.tapUsernameInput();
         loginScreen.waitForKeyboard();
-    }
-
-    @AfterEach
-    void tearDown() {
-        AppiumDriverManager.quit();
     }
 }
